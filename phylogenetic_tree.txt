@@ -3,22 +3,25 @@ Phylogenetic Tree (UPGMA)
 
 Distance Matrix:
 ---------------
-	Human	Mouse	Rat	Chicken
-Human	0.0000	0.2941	0.2353	0.3889
-Mouse	0.2941	0.0000	0.2941	0.3889
-Rat	0.2353	0.2941	0.0000	0.2778
-Chicken	0.3889	0.3889	0.2778	0.0000
+	organism_AAAAA	organism_AACAA	organism_AACGA	organism_AATAA	organism_AATTA
+organism_AAAAA	0.0000	0.0208	0.0417	0.0208	0.0417
+organism_AACAA	0.0208	0.0000	0.0208	0.0208	0.0417
+organism_AACGA	0.0417	0.0208	0.0000	0.0417	0.0417
+organism_AATAA	0.0208	0.0208	0.0417	0.0000	0.0208
+organism_AATTA	0.0417	0.0417	0.0417	0.0208	0.0000
 
 Tree in Newick format:
 --------------------
-(((Human:0.11764705882352944,Rat:0.11764705882352944):0.029411764705882304,Mouse:0.14705882352941174):0.03349673202614378,Chicken:0.18055555555555552);
+((((organism_AACGA:0.0104,organism_AACAA:0.0104):0.0052,organism_AATAA:0.0156):0.0039,organism_AATTA:0.0195):0.0039,organism_AAAAA:0.0234);
 
 Tree structure:
 --------------
-└── (((Human,Rat),Mouse),Chicken)
-    ├── ((Human,Rat),Mouse)
-    │   ├── (Human,Rat)
-    │   │   ├── Human
-    │   │   └── Rat
-    │   └── Mouse
-    └── Chicken
+└── ((((organism_AACGA,organism_AACAA),organism_AATAA),organism_AATTA),organism_AAAAA)
+    ├── (((organism_AACGA,organism_AACAA),organism_AATAA),organism_AATTA)
+    │   ├── ((organism_AACGA,organism_AACAA),organism_AATAA)
+    │   │   ├── (organism_AACGA,organism_AACAA)
+    │   │   │   ├── organism_AACGA
+    │   │   │   └── organism_AACAA
+    │   │   └── organism_AATAA
+    │   └── organism_AATTA
+    └── organism_AAAAA
