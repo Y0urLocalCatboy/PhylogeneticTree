@@ -8,9 +8,7 @@ Main entry point for the Phylogenetic Tree application.
 This script provides a launcher that allows users to choose between:
 1. Needleman-Wunsch Pairwise Alignment
 2. UPGMA Phylogenetic Tree Construction
-
-Author: [Your Name]
-Date: [Current Date]
+Gabriel Pankowski
 """
 
 class LauncherApp:
