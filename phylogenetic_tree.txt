@@ -1,0 +1,24 @@
+Phylogenetic Tree (UPGMA)
+=======================
+
+Distance Matrix:
+---------------
+	Human	Mouse	Rat	Chicken
+Human	0.0000	0.2941	0.2353	0.3889
+Mouse	0.2941	0.0000	0.2941	0.3889
+Rat	0.2353	0.2941	0.0000	0.2778
+Chicken	0.3889	0.3889	0.2778	0.0000
+
+Tree in Newick format:
+--------------------
+(((Human:0.11764705882352944,Rat:0.11764705882352944):0.029411764705882304,Mouse:0.14705882352941174):0.03349673202614378,Chicken:0.18055555555555552);
+
+Tree structure:
+--------------
+└── (((Human,Rat),Mouse),Chicken)
+    ├── ((Human,Rat),Mouse)
+    │   ├── (Human,Rat)
+    │   │   ├── Human
+    │   │   └── Rat
+    │   └── Mouse
+    └── Chicken
