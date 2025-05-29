@@ -12,16 +12,16 @@ organism_AATTA	0.0417	0.0417	0.0417	0.0208	0.0000
 
 Tree in Newick format:
 --------------------
-((((organism_AACGA:0.0104,organism_AACAA:0.0104):0.0052,organism_AATAA:0.0156):0.0039,organism_AATTA:0.0195):0.0039,organism_AAAAA:0.0234);
+((((organism_AAAAA:0.010416666666666666,organism_AACAA:0.010416666666666666):0.0,organism_AATAA:0.010416666666666666):0.005208333333333334,organism_AATTA:0.015625):0.00390625,organism_AACGA:0.01953125);
 
 Tree structure:
 --------------
-└── ((((organism_AACGA,organism_AACAA),organism_AATAA),organism_AATTA),organism_AAAAA)
-    ├── (((organism_AACGA,organism_AACAA),organism_AATAA),organism_AATTA)
-    │   ├── ((organism_AACGA,organism_AACAA),organism_AATAA)
-    │   │   ├── (organism_AACGA,organism_AACAA)
-    │   │   │   ├── organism_AACGA
+└── ((((organism_AAAAA,organism_AACAA),organism_AATAA),organism_AATTA),organism_AACGA)
+    ├── (((organism_AAAAA,organism_AACAA),organism_AATAA),organism_AATTA)
+    │   ├── ((organism_AAAAA,organism_AACAA),organism_AATAA)
+    │   │   ├── (organism_AAAAA,organism_AACAA)
+    │   │   │   ├── organism_AAAAA
     │   │   │   └── organism_AACAA
     │   │   └── organism_AATAA
     │   └── organism_AATTA
-    └── organism_AAAAA
+    └── organism_AACGA

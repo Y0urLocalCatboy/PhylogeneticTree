@@ -1,16 +1,11 @@
 from tkinter import *
-from tkinter import ttk, filedialog, messagebox
-import sys
-import os
-from upgma import *
 
 """
-Main entry point for the Phylogenetic Tree application.
-This script directly launches the UPGMA Phylogenetic Tree Construction.
-Gabriel Pankowski
+Main application.
+Directly launches the UPGMA Phylogenetic Tree Construction.
+Created by Gabriel Pankowski
 """
 
-# Import the UPGMAApp class from upgma_ui.py
 from upgma_ui import UPGMAApp
 
 def main():
