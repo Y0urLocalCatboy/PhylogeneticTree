@@ -4,24 +4,24 @@ Phylogenetic Tree (UPGMA)
 Distance Matrix:
 ---------------
 	organism_AAAAA	organism_AACAA	organism_AACGA	organism_AATAA	organism_AATTA
-organism_AAAAA	0.0000	0.0208	0.0417	0.0208	0.0417
-organism_AACAA	0.0208	0.0000	0.0208	0.0208	0.0417
-organism_AACGA	0.0417	0.0208	0.0000	0.0417	0.0417
-organism_AATAA	0.0208	0.0208	0.0417	0.0000	0.0208
-organism_AATTA	0.0417	0.0417	0.0417	0.0208	0.0000
+organism_AAAAA	0.0000	0.7292	0.8542	0.8125	0.7917
+organism_AACAA	0.7292	0.0000	0.3542	0.4375	0.5208
+organism_AACGA	0.8542	0.3542	0.0000	0.1290	0.2581
+organism_AATAA	0.8125	0.4375	0.1290	0.0000	0.1290
+organism_AATTA	0.7917	0.5208	0.2581	0.1290	0.0000
 
 Tree in Newick format:
 --------------------
-((((organism_AAAAA:0.010416666666666666,organism_AACAA:0.010416666666666666):0.0,organism_AATAA:0.010416666666666666):0.005208333333333334,organism_AATTA:0.015625):0.00390625,organism_AACGA:0.01953125);
+(organism_AAAAA:0.38541666666666663,(organism_AACAA:0.22916666666666669,((organism_AACGA:0.06451612903225806,organism_AATAA:0.06451612903225806):0.03225806451612903,organism_AATTA:0.0967741935483871):0.1323924731182796):0.15624999999999994);
 
 Tree structure:
 --------------
-└── ((((organism_AAAAA,organism_AACAA),organism_AATAA),organism_AATTA),organism_AACGA)
-    ├── (((organism_AAAAA,organism_AACAA),organism_AATAA),organism_AATTA)
-    │   ├── ((organism_AAAAA,organism_AACAA),organism_AATAA)
-    │   │   ├── (organism_AAAAA,organism_AACAA)
-    │   │   │   ├── organism_AAAAA
-    │   │   │   └── organism_AACAA
-    │   │   └── organism_AATAA
-    │   └── organism_AATTA
-    └── organism_AACGA
+└── (organism_AAAAA,(organism_AACAA,((organism_AACGA,organism_AATAA),organism_AATTA)))
+    ├── organism_AAAAA
+    └── (organism_AACAA,((organism_AACGA,organism_AATAA),organism_AATTA))
+        ├── organism_AACAA
+        └── ((organism_AACGA,organism_AATAA),organism_AATTA)
+            ├── (organism_AACGA,organism_AATAA)
+            │   ├── organism_AACGA
+            │   └── organism_AATAA
+            └── organism_AATTA

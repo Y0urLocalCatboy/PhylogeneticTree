@@ -197,7 +197,6 @@ def print_tree_structure(node, file=None, prefix="", is_last=True):  # Renamed f
     else:
         print(prefix + ("└── " if is_last else "├── ") + str(node))
 
-    # Determine children to iterate over
     children = []
     if node.left:
         children.append(node.left)
@@ -210,7 +209,6 @@ def print_tree_structure(node, file=None, prefix="", is_last=True):  # Renamed f
         print_tree_structure(child, file, new_prefix, is_child_last)
 
 
-# <<< START OF MODIFIED CODE >>>
 def plot_tree(root, filename="phylogenetic_tree.png"):
     """
     Plot a phylogenetic tree using matplotlib with improved labels and branch colors.
@@ -221,14 +219,13 @@ def plot_tree(root, filename="phylogenetic_tree.png"):
         filename (str): The name of the file to save the plot to
     """
     fig, ax = plt.subplots(figsize=(12, 8))
-    ax.axis('off')  # No axes box, ticks, or labels by default
+    ax.axis('off')
 
     if not root:
         print("Tree is empty, cannot plot.")
         plt.close(fig)
         return
 
-    # 1. Assign x-coordinates to leaves (for even spacing)
     leaf_x_coords_map = {}
     current_x_ord = 0
 
@@ -244,33 +241,29 @@ def plot_tree(root, filename="phylogenetic_tree.png"):
     assign_leaf_x_recursive(root)
 
     num_leaves = current_x_ord
-    if num_leaves == 0:  # Should not happen if root is not None and is a leaf
+    if num_leaves == 0:
         num_leaves = 1
 
-        # 2. Assign (x, y) positions to all nodes
-    # Y is node.height. X is normalized based on leaf order or midpoint of children.
+
     node_positions = {}
 
     def assign_node_positions_recursive(node):
         if node.is_leaf:
-            # Normalize x for leaves to be between 0 and 1 (or single point if 1 leaf)
             x_pos = (leaf_x_coords_map[node] / (num_leaves - 1)) if num_leaves > 1 else 0.5
             node_positions[node] = (x_pos, node.height)
         else:
-            # Recursively get children positions
             if node.left: assign_node_positions_recursive(node.left)
             if node.right: assign_node_positions_recursive(node.right)
 
-            # Parent x is midpoint of children's x
             x_left = node_positions[node.left][0] if node.left and node.left in node_positions else -1
             x_right = node_positions[node.right][0] if node.right and node.right in node_positions else -1
 
-            parent_x = 0.5  # Default if no children info (should not happen for internal UPGMA node)
+            parent_x = 0.5
             if node.left and node.left in node_positions and node.right and node.right in node_positions:
                 parent_x = (x_left + x_right) / 2
-            elif node.left and node.left in node_positions:  # Only left child
+            elif node.left and node.left in node_positions:  # left child
                 parent_x = x_left
-            elif node.right and node.right in node_positions:  # Only right child
+            elif node.right and node.right in node_positions:  # right child
                 parent_x = x_right
 
             node_positions[node] = (parent_x, node.height)
@@ -278,27 +271,23 @@ def plot_tree(root, filename="phylogenetic_tree.png"):
 
     assign_node_positions_recursive(root)
 
-    # Determine plot limits from actual positions
     all_x = [pos[0] for pos in node_positions.values()]
     all_y = [pos[1] for pos in node_positions.values()]
 
     min_x_coord, max_x_coord = (min(all_x), max(all_x)) if all_x else (0, 1)
-    min_y_coord, max_y_coord = (min(all_y), max(all_y)) if all_y else (0, 1)  # min_y is 0 for leaves
+    min_y_coord, max_y_coord = (min(all_y), max(all_y)) if all_y else (0, 1)
 
-    # Add padding for labels and aesthetics
     x_range = max_x_coord - min_x_coord if max_x_coord > min_x_coord else 1.0
     y_range = max_y_coord - min_y_coord if max_y_coord > min_y_coord else 1.0
 
     ax.set_xlim(min_x_coord - 0.05 * x_range, max_x_coord + 0.05 * x_range)
-    # Y-axis: leaves at y=0, root at max_h. Add padding for labels below leaves.
     y_padding_factor = 0.15 if num_leaves > 10 else 0.05  # More padding if many rotated labels
     ax.set_ylim(min_y_coord - y_padding_factor * y_range, max_y_coord + 0.05 * y_range)
 
-    # Branch colors and drawing
     branch_colors = ["#E63946", "#457B9D", "#2A9D8F", "#F4A261", "#A8DADC", "#1D3557", "#6A0DAD", "#FFC300"]
-    color_idx_counter = 0  # Use a mutable type like list or dict for nonlocal modification in Python 2 style, or make it an attribute or pass around
+    color_idx_counter = 0
 
-    memo_drawn_branches = set()  # To avoid redrawing branches if structure is complex
+    memo_drawn_branches = set()
 
     def get_branch_color():
         nonlocal color_idx_counter
@@ -309,13 +298,10 @@ def plot_tree(root, filename="phylogenetic_tree.png"):
     def draw_connections_recursive(node, parent_color=None):
         if node not in node_positions: return
 
-        px, py = node_positions[node]  # Current node's position
+        px, py = node_positions[node]
 
-        # Assign color for branches leading TO this node's children
-        # If this is an internal node, its children's branches get a new color cycle
         children_branch_color = get_branch_color() if not node.is_leaf else parent_color
 
-        # Draw lines to children
         children_to_draw = []
         if node.left and node.left in node_positions: children_to_draw.append(node.left)
         if node.right and node.right in node_positions: children_to_draw.append(node.right)
@@ -325,69 +311,54 @@ def plot_tree(root, filename="phylogenetic_tree.png"):
             cx, cy = node_positions[child_node]
             child_x_coords.append(cx)
 
-            branch_id = tuple(sorted((id(node), id(child_node))))  # Unique ID for branch
+            branch_id = tuple(sorted((id(node), id(child_node))))
             if branch_id not in memo_drawn_branches:
-                # Vertical line from child (cx, cy) to parent's height (cx, py)
                 ax.add_line(Line2D([cx, cx], [cy, py], color=children_branch_color, lw=1.5))
                 memo_drawn_branches.add(branch_id)
 
             draw_connections_recursive(child_node, children_branch_color)  # Pass color down
 
-        # Horizontal line at parent's height, connecting its children's vertical stems
         if len(child_x_coords) > 0:  # If there are children
-            # The horizontal line connects the parent's x (px) to each child's vertical line start (cx, py)
-            # Or, more commonly, a single horizontal bar from min_child_x to max_child_x at parent's height
             min_cx = min(child_x_coords) if child_x_coords else px
             max_cx = max(child_x_coords) if child_x_coords else px
 
-            # Draw horizontal line from parent (px,py) to the vertical lines of children
-            # This forms the 'elbow' joint.
-            # The main horizontal bar connecting children is formed by these segments.
-            # For UPGMA, px should be between min_cx and max_cx.
-            # Line from (min_cx, py) to (max_cx, py)
-            if min_cx != max_cx:  # Only draw if there's a span
+
+            if min_cx != max_cx:
                 ax.add_line(Line2D([min_cx, max_cx], [py, py], color=children_branch_color, lw=1.5))
 
-        # Add leaf labels
+
         if node.is_leaf:
             rotation = 0
             ha = 'center'
             va = 'top'
-            # Place text slightly below the node point (y=0 for leaves)
             label_y_offset = -0.015 * y_range
 
-            if num_leaves > 8:  # Heuristic for when to rotate
+            if num_leaves > 8:
                 rotation = 45
                 ha = 'right'
-                va = 'top'  # Keep va='top' so text starts at (px, py+offset) and rotates from there
+                va = 'top'
                 if num_leaves > 15:
                     rotation = 60
-                # For rotated labels, ensure they don't crash into x-axis line if one were visible
-                # Adjusting ha to 'right' and va to 'top' means the top-right corner of the
-                # unrotated text box is near the point, then it rotates.
 
             ax.text(px, py + label_y_offset, node.name,
                     rotation=rotation,
                     ha=ha,
                     va=va,
                     fontsize=8,
-                    rotation_mode="anchor")  # Anchor rotation for better control
+                    rotation_mode="anchor")
 
-    # Initialize color index and start drawing from root
+
     color_idx_counter = 0
     draw_connections_recursive(root)
 
     plt.title("Phylogenetic Tree (UPGMA)")
-    # No x/y labels as axes are off and scaled for display
-    # plt.xlabel("Normalized Leaf Index")
-    # plt.ylabel("Height (Divergence Time)")
+
 
     plt.savefig(filename, bbox_inches='tight', dpi=300)
     plt.close(fig)
     print(f"Tree plot saved to {filename}")
 
 
-# <<< END OF MODIFIED CODE >>>
 
 def load_sequences_from_fasta(file_path):
     """
@@ -406,7 +377,7 @@ def load_sequences_from_fasta(file_path):
         for line in f:
             line = line.strip()
             if line.startswith(">"):
-                current_name = line[1:]  # Remove the '>' character
+                current_name = line[1:]
                 sequences[current_name] = ""
             elif current_name is not None:
                 sequences[current_name] += line
@@ -428,14 +399,11 @@ def load_distance_matrix_from_file(file_path):
     with open(file_path, "r") as f:
         lines = f.readlines()
 
-    # First line contains sequence names
     sequence_names = lines[0].strip().split()
     n = len(sequence_names)
 
-    # Create distance matrix
     distance_matrix = np.zeros((n, n))
 
-    # Parse the matrix
     for i in range(n):
         values = lines[i+1].strip().split()
         for j in range(n):
@@ -458,15 +426,12 @@ def main_upgma(sequences=None, distance_matrix=None, sequence_names=None,
     Returns:
         Node: The root node of the phylogenetic tree
     """
-    # Calculate distance matrix if not provided
     if distance_matrix is None and sequences is not None:
         distance_matrix, sequence_names = calculate_distance_matrix(
             sequences)
 
-    # Run UPGMA
     root = upgma(distance_matrix, sequence_names)
 
-    # Save results
     save_tree_to_file(root, output_file, distance_matrix, sequence_names)
     plot_tree(root, output_image)
 
