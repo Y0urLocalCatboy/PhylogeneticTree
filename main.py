@@ -1,11 +1,5 @@
 from tkinter import *
 
-"""
-Main application.
-Directly launches the UPGMA Phylogenetic Tree Construction.
-Created by Gabriel Pankowski
-"""
-
 from upgma_ui import UPGMAApp
 
 def main():
