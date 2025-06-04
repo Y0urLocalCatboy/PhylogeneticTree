@@ -3,25 +3,40 @@ Phylogenetic Tree (UPGMA)
 
 Distance Matrix:
 ---------------
-	organism_AAAAA	organism_AACAA	organism_AACGA	organism_AATAA	organism_AATTA
-organism_AAAAA	0.0000	0.7292	0.8542	0.8125	0.7917
-organism_AACAA	0.7292	0.0000	0.3542	0.4375	0.5208
-organism_AACGA	0.8542	0.3542	0.0000	0.1290	0.2581
-organism_AATAA	0.8125	0.4375	0.1290	0.0000	0.1290
-organism_AATTA	0.7917	0.5208	0.2581	0.1290	0.0000
+	organism_AAAAA	organism_AACAA	organism_AACGA	organism_AATAA	organism_AATTA	organism_AAAAAT	organism_AACAAT	organism_AACGAT	organism_AATAAT	organism_AATTAT
+organism_AAAAA	0.0000	1.0000	1.0000	1.0000	1.0000	0.9792	1.0000	1.0000	1.0000	1.0000
+organism_AACAA	1.0000	0.0000	0.3542	0.4375	0.5208	0.7292	0.0000	0.3542	0.4375	0.9991
+organism_AACGA	1.0000	0.3542	0.0000	0.1290	0.2581	0.8542	0.3542	0.0000	0.1290	1.0000
+organism_AATAA	1.0000	0.4375	0.1290	0.0000	0.1290	0.8125	0.4375	0.1290	0.0000	1.0000
+organism_AATTA	1.0000	0.5208	0.2581	0.1290	0.0000	0.7917	0.5208	0.2581	0.1290	1.0000
+organism_AAAAAT	0.9792	0.7292	0.8542	0.8125	0.7917	0.0000	0.7292	0.8542	0.8125	1.0000
+organism_AACAAT	1.0000	0.0000	0.3542	0.4375	0.5208	0.7292	0.0000	0.3542	0.4375	0.9991
+organism_AACGAT	1.0000	0.3542	0.0000	0.1290	0.2581	0.8542	0.3542	0.0000	0.1290	1.0000
+organism_AATAAT	1.0000	0.4375	0.1290	0.0000	0.1290	0.8125	0.4375	0.1290	0.0000	1.0000
+organism_AATTAT	1.0000	0.9991	1.0000	1.0000	1.0000	1.0000	0.9991	1.0000	1.0000	0.0000
 
 Tree in Newick format:
 --------------------
-(organism_AAAAA:0.38541666666666663,(organism_AACAA:0.22916666666666669,((organism_AACGA:0.06451612903225806,organism_AATAA:0.06451612903225806):0.03225806451612903,organism_AATTA:0.0967741935483871):0.1323924731182796):0.15624999999999994);
+((organism_AAAAA:0.49479166666666663,(((organism_AACAA:0.0,organism_AACAAT:0.0):0.22916666666666669,(((organism_AACGA:0.0,organism_AACGAT:0.0):0.06451612903225806,(organism_AATAA:0.0,organism_AATAAT:0.0):0.06451612903225806):0.03225806451612903,organism_AATTA:0.0967741935483871):0.1323924731182796):0.15624999999999994,organism_AAAAAT:0.38541666666666663):0.109375):0.005151686807653599,organism_AATTAT:0.49994335347432023);
 
 Tree structure:
 --------------
-└── (organism_AAAAA,(organism_AACAA,((organism_AACGA,organism_AATAA),organism_AATTA)))
-    ├── organism_AAAAA
-    └── (organism_AACAA,((organism_AACGA,organism_AATAA),organism_AATTA))
-        ├── organism_AACAA
-        └── ((organism_AACGA,organism_AATAA),organism_AATTA)
-            ├── (organism_AACGA,organism_AATAA)
-            │   ├── organism_AACGA
-            │   └── organism_AATAA
-            └── organism_AATTA
+└── ((organism_AAAAA,(((organism_AACAA,organism_AACAAT),(((organism_AACGA,organism_AACGAT),(organism_AATAA,organism_AATAAT)),organism_AATTA)),organism_AAAAAT)),organism_AATTAT)
+    ├── (organism_AAAAA,(((organism_AACAA,organism_AACAAT),(((organism_AACGA,organism_AACGAT),(organism_AATAA,organism_AATAAT)),organism_AATTA)),organism_AAAAAT))
+    │   ├── organism_AAAAA
+    │   └── (((organism_AACAA,organism_AACAAT),(((organism_AACGA,organism_AACGAT),(organism_AATAA,organism_AATAAT)),organism_AATTA)),organism_AAAAAT)
+    │       ├── ((organism_AACAA,organism_AACAAT),(((organism_AACGA,organism_AACGAT),(organism_AATAA,organism_AATAAT)),organism_AATTA))
+    │       │   ├── (organism_AACAA,organism_AACAAT)
+    │       │   │   ├── organism_AACAA
+    │       │   │   └── organism_AACAAT
+    │       │   └── (((organism_AACGA,organism_AACGAT),(organism_AATAA,organism_AATAAT)),organism_AATTA)
+    │       │       ├── ((organism_AACGA,organism_AACGAT),(organism_AATAA,organism_AATAAT))
+    │       │       │   ├── (organism_AACGA,organism_AACGAT)
+    │       │       │   │   ├── organism_AACGA
+    │       │       │   │   └── organism_AACGAT
+    │       │       │   └── (organism_AATAA,organism_AATAAT)
+    │       │       │       ├── organism_AATAA
+    │       │       │       └── organism_AATAAT
+    │       │       └── organism_AATTA
+    │       └── organism_AAAAAT
+    └── organism_AATTAT

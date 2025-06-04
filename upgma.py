@@ -281,7 +281,7 @@ def plot_tree(root, filename="phylogenetic_tree.png"):
     y_range = max_y_coord - min_y_coord if max_y_coord > min_y_coord else 1.0
 
     ax.set_xlim(min_x_coord - 0.05 * x_range, max_x_coord + 0.05 * x_range)
-    y_padding_factor = 0.15 if num_leaves > 10 else 0.05  # More padding if many rotated labels
+    y_padding_factor = 0.15 if num_leaves > 10 else 0.05
     ax.set_ylim(min_y_coord - y_padding_factor * y_range, max_y_coord + 0.05 * y_range)
 
     branch_colors = ["#E63946", "#457B9D", "#2A9D8F", "#F4A261", "#A8DADC", "#1D3557", "#6A0DAD", "#FFC300"]
@@ -316,7 +316,7 @@ def plot_tree(root, filename="phylogenetic_tree.png"):
                 ax.add_line(Line2D([cx, cx], [cy, py], color=children_branch_color, lw=1.5))
                 memo_drawn_branches.add(branch_id)
 
-            draw_connections_recursive(child_node, children_branch_color)  # Pass color down
+            draw_connections_recursive(child_node, children_branch_color)
 
         if len(child_x_coords) > 0:  # If there are children
             min_cx = min(child_x_coords) if child_x_coords else px
